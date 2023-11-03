@@ -10,5 +10,6 @@ void prompt(void);
 void _sprintf(const char *format);
 void execute(char **argv);
 char *_read(void);
+char **tokenize(char *str, char *delim);
 
 #endif

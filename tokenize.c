@@ -1,25 +1,35 @@
 #include "shell.h"
-char **tokenize(char *msg)
-{
-	int counter = 0;
-	char *token, *delimeter = "\n", **toks;
-	char *buffer;
+#include <stdlib.h>
+#include <string.h>
 
-	token = strtok(buffer, delimeter);
-	while (token)
+/**
+ * tokenize - break a string into an array of tokens
+ * @str: string
+ * @delim: delimiter
+ * Return: array of strings
+ */
+char **tokenize(char *str, char *delim)
+{
+	char *token, **tokens;
+	size_t i = 0, num_tokens = 1; /* count the last token */
+
+	while (str[i] != '\0')
 	{
-		toks[counter] = strdup(token);
-		token = strtok(NULL, delimeter);
-		counter++;
+		if (str[i++] == delim[0])
+			num_tokens++;
 	}
-	toks[counter] = token;
-	/**if (strcmp(args[0], "cd") == 0)
+
+	tokens = malloc((num_tokens + 1) * sizeof(char *));
+	if (tokens == NULL)
+		return (NULL);
+
+	i = 0;
+	token = strtok(str, delim);
+	while (token != NULL)
 	{
-		chdir(args[1]);
-		continue;
+		tokens[i++] = token;
+		token = strtok(NULL, delim);
 	}
-	else if (strcmp(args[0], "exit") == 0)
-	{
-		exit(0);
-	}**/
+	tokens[i] = token; /* last token is NULL */
+	return (tokens);
 }
