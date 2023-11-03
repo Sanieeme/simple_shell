@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 			free(msg);
 			continue;
 		}
-		execute(argv);
 		if (strcmp(argv[0], "cd") == 0)
 		{
 			chdir(argv[1]);
