@@ -7,6 +7,7 @@
 int main(int argc, char **argv)
 {
 	char *msg;
+	(void)argc;
 
 	while (1)
 	{
@@ -21,16 +22,8 @@ int main(int argc, char **argv)
 			free(msg);
 			continue;
 		}
+		argv = tokenize(msg, " ");
 		execute(argv);
-		if (strcmp(argv[0], "cd") == 0)
-		{
-			chdir(argv[1]);
-			continue;
-		}
-		else if (strcmp(argv[0], "exit") == 0)
-		{
-			exit(0);
-		}
 	}
 	return (0);
 }

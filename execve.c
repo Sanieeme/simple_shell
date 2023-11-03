@@ -24,7 +24,7 @@ void execute(char **argv)
 		}
 		if (execve(msg, argv, NULL) == -1)
 		{
-			perror("execve");
+			perror("shell");
 			exit(EXIT_FAILURE);
 		}
 	}
