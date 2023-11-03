@@ -9,6 +9,7 @@ int main(int argc, char **argv)
 	char *msg;
 	(void)argc;
 
+
 	while (1)
 	{
 		prompt();
@@ -22,7 +23,6 @@ int main(int argc, char **argv)
 			free(msg);
 			continue;
 		}
-<<<<<<< HEAD
 		if (strcmp(argv[0], "cd") == 0)
 		{
 			chdir(argv[1]);
@@ -32,10 +32,8 @@ int main(int argc, char **argv)
 		{
 			exit(0);
 		}
-=======
-		argv = tokenize(msg, " ");
+		argv = tokenize(msg, "\n");
 		execute(argv);
->>>>>>> b9e20320f1ca3df20807593ca1cd03ff635b2828
 	}
 	return (0);
 }

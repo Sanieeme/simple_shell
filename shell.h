@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+extern char **environ;
 
 void prompt(void);
 void _sprintf(const char *format);
