@@ -4,7 +4,7 @@
  * Return: 0
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[], char *envp[])
 {
 	char *msg;
 	(void)argc;
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 			free(msg);
 			continue;
 		}
+<<<<<<< HEAD
 		if (strcmp(argv[0], "cd") == 0)
 		{
 			chdir(argv[1]);
@@ -34,6 +35,10 @@ int main(int argc, char **argv)
 		}
 		argv = tokenize(msg, "\n");
 		execute(argv);
+=======
+		argv = tokenize(msg, " ");
+		execute(argv, envp);
+>>>>>>> d4db86c97a19b1793f4866010c066970cd72dfea
 	}
 	return (0);
 }
