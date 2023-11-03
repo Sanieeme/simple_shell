@@ -4,10 +4,11 @@
  * @argv: parameter
  * Return: 0
  */
-void execute(char **argv)
+void execute(char *argv[], char *env[])
 {
 	pid_t pid_child;
-	char *msg = NULL;
+	char *command;
+	int argc = 0;
 
 	pid_child = fork();
 
@@ -20,11 +21,19 @@ void execute(char **argv)
 	{
 		if (argv)
 		{
-			msg = argv[0];
+			command = argv[0];
+
+			/* count the number of arguments */
+			while (argv[argc])
+				argc++;
 		}
-		if (execve(msg, argv, NULL) == -1)
+
+		if (argc != 1)
+			command[0] = '\n'; /* cause error if argc != 1 */
+
+		if (execve(command, argv, env) == -1)
 		{
-			perror("shell");
+			perror("simple_shell");
 			exit(EXIT_FAILURE);
 		}
 	}

@@ -4,7 +4,7 @@
  * Return: 0
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[], char *envp[])
 {
 	char *msg;
 	(void)argc;
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		argv = tokenize(msg, " ");
-		execute(argv);
+		execute(argv, envp);
 	}
 	return (0);
 }

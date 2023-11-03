@@ -14,6 +14,7 @@ char *_read(void)
 	{
 		if (feof(stdin))
 		{
+			printf("\n");
 			exit(EXIT_SUCCESS);
 		}
 		else
@@ -22,5 +23,6 @@ char *_read(void)
 			exit(EXIT_FAILURE);
 		}
 	}
+	msg[strlen(msg) - 1] = '\0';
 	return (msg);
 }
