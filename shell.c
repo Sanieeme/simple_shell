@@ -1,6 +1,9 @@
 #include "shell.h"
 /**
  * main - entry
+ * @argc: number of commandline arguments
+ * @argv: argument vector
+ * @envp: environment variable
  * Return: 0
  */
 
