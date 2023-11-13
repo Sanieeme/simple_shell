@@ -1,4 +1,8 @@
 #include "shell.h"
+#include <string.h>
+
+char **arrdup(char **arr);
+
 /**
  * main - entry
  * @argc: number of commandline arguments
@@ -6,43 +10,67 @@
  * @envp: environment variable
  * Return: 0
  */
-
 int main(int argc, char *argv[], char *envp[])
 {
-	char *msg;
-	(void)argc;
+	char *msg, *msg_dup, **argv_dup;
+	(void) argc;
 
 	while (1)
 	{	
 		prompt();
 		msg = _read();
-		if (!msg)
-		{
-			exit(EXIT_SUCCESS);
-		}
-		if (msg[0] == '\0' || strcmp(msg, "\n") == 0)
+		msg_dup = strdup(msg);
+
+		if (msg_dup[0] == '\0' || strcmp(msg_dup, "\n") == 0)
 		{
 			free(msg);
+			msg = NULL;
+			free(msg_dup);
+			msg_dup = NULL;
 			continue;
 		}
-<<<<<<< HEAD
-		argv = tokenize(msg, " ");
-		executes(argv, envp);
-=======
 
-		if (strcmp(argv[0], "cd") == 0)
-		{
-			chdir(argv[1]);
-			continue;
-		}
-		else if (strcmp(argv[0], "exit") == 0)
-		{
-			exit(0);
-		}
+		argv = tokenize(msg_dup, " ");
+		argv_dup = arrdup(argv);
+		execute(argv_dup, envp);
 
-		argv = tokenize(msg, " ");
-		execute(argv, envp);
->>>>>>> 3360ce2a714e5fabfa7537cea81d81e40e51a6c4
+		/* free allocated memory after use */
+		free(msg);
+		free(msg_dup);
+		free(argv);
+		free(argv_dup);
+		msg = NULL;
+		msg_dup = NULL;
+		argv = NULL;
+		argv_dup = NULL;
 	}
 	return (0);
+}
+
+/**
+ * arrdup - duplicate array
+ * arr: array to be duplicated
+ * Return: new array with contents copied from arr
+ */
+char **arrdup(char **arr)
+{
+	/* arr must be NULL terminated */
+	char **dup;
+	size_t size = 0, i;
+
+	if (arr == NULL)
+		return (NULL);
+
+	for (i = 0; arr[i]; i++)
+		size += sizeof(arr[i]);
+
+	size += sizeof(arr) + sizeof(arr[i]);
+	dup = malloc(size);
+	if (dup == NULL)
+		return (NULL);
+	i = 0;
+	for (i = 0; arr[i]; i++)
+		dup[i] = arr[i];
+	dup[i] = arr[i];
+	return (dup);
 }
