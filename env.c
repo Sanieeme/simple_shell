@@ -1,5 +1,5 @@
 #include "shell.h"
-char *_getenv(char *msg)
+char *_getenv(const char *msg)
 {
 	char *cmd, *k, *v, *env;
 	int i;
@@ -10,7 +10,7 @@ char *_getenv(char *msg)
 		k = strtok(cmd, "=");
 		if (strcmp(k, msg) == 0)
 		{
-			v = strtok(NULL, " ");
+			v = strtok(NULL, "=");
 			env = strdup(v);
 			free(cmd);
 			return (env);
