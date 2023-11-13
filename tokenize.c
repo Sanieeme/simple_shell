@@ -11,12 +11,29 @@
 char **tokenize(char *str, char *delim)
 {
 	char *token, **tokens;
-	size_t i = 0, num_tokens = 1; /* count the last token */
+	size_t i, j; 
+	size_t num_tokens = 1; /* count the last token */
 
+	if (str == NULL || delim == NULL)
+		return (NULL);
+
+	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i++] == delim[0])
-			num_tokens++;
+		j = 0;
+		while (delim[j] != '\0')
+		{
+			if (i == 0 || i == strlen(str) - 1 || str[i - 1] == delim[j])
+				break;
+
+			if (str[i] == delim[j])
+			{
+				num_tokens++;
+				break;
+			}
+			++j;
+		}
+		++i;
 	}
 
 	tokens = malloc((num_tokens + 1) * sizeof(char *));
