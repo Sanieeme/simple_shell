@@ -30,6 +30,6 @@ char **tokenize(char *str, char *delim)
 		tokens[i++] = token;
 		token = strtok(NULL, delim);
 	}
-	tokens[i] = token; /* last token is NULL */
+	tokens[i] = token;/* last token is NULL */
 	return (tokens);
 }

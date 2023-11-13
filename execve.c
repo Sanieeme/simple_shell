@@ -9,7 +9,7 @@ void execute(char *argv[], char *env[])
 	pid_t pid_child;
 	char *command;
 	int argc = 0;
-
+ 
 	pid_child = fork();
 
 	if (pid_child == -1)
@@ -22,7 +22,6 @@ void execute(char *argv[], char *env[])
 		if (argv)
 		{
 			command = argv[0];
-
 			/* count the number of arguments */
 			while (argv[argc])
 				argc++;
