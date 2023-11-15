@@ -1,62 +1,79 @@
 #include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 char **arrdup(char **arr);
 
 /**
- * main - entry
- * @argc: number of commandline arguments
+ * main - start simple_shell
+ * @argc: number of command line arguments
  * @argv: argument vector
- * @envp: environment variable
+ * @envp: current environment
  * Return: 0
  */
 int main(int argc, char *argv[], char *envp[])
 {
-	char *msg, *msg_dup, **argv_dup;
-	int status;
+	char *buf_dup, **argv_dup, *buffer = NULL;
+	ssize_t nread = 0;
+	size_t size = 0;
+	int i;
 	(void) argc;
 
-	while (1)
+	/* Read a line of text from the keyboard. */
+	while (nread != -1)
 	{
 		prompt();
-		msg = _read();
-		msg_dup = strdup(msg);
+		nread = getline(&buffer, &size, stdin);
 
-		if (msg_dup[0] == '\0' || strcmp(msg_dup, "\n") == 0)
+		if (nread != -1)
 		{
-			free(msg);
-			msg = NULL;
-			free(msg_dup);
-			msg_dup = NULL;
-			continue;
-		}
+			/* remove \n char at the end of buffer */
+			buffer[strlen(buffer) - 1] = '\0';
+			buf_dup = strdup(buffer);
 
-		argv = _tokenize(msg_dup, " ");
-		argv_dup = arrdup(argv);
+			if (buf_dup[0] == '\0' || strcmp(buf_dup, "\n") == 0)
+			{
+				free(buf_dup);
+				continue;
+			}
 
-		if (strcmp("exit", argv_dup[0]) == 0)
-		{
-			status = argv_dup[1] == NULL ? EXIT_SUCCESS : atoi(argv_dup[1]);
-			free(msg);
-			free(msg_dup);
+			argv = tokenize(buf_dup, " ");
+			argv_dup = arrdup(argv);
+
+			/**
+			  *if (strcmp("exit", argv_dup[0]) == 0)
+			  *{
+			  * status = argv_dup[1] == NULL ? EXIT_SUCCESS : atoi(argv_dup[1]);
+			  * free(buffer);
+			  * free(buf_dup);
+			  * free(argv);
+			  * free(argv_dup);
+			  * exit(status);
+			  *}
+			  */
+			execute(argv_dup, envp);
+
+			/* free allocated memory */
+			free(buffer);
+			buffer = NULL;
+			free(buf_dup);
 			free(argv);
+
+			for (i = 0; argv_dup[i]; i++)
+			{
+				free(argv_dup[i]);
+			}
+			free(argv_dup[i]);
 			free(argv_dup);
-			exit(status);
+		} else
+		{
+			if (buffer)
+				free(buffer);
 		}
-
-		executes(argv_dup, envp);
-
-		/* free allocated memory after use */
-		free(msg);
-		free(msg_dup);
-		free(argv);
-		free(argv_dup);
-		msg = NULL;
-		msg_dup = NULL;
-		argv = NULL;
-		argv_dup = NULL;
 	}
-	return (0);
+	printf("\n");
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -67,8 +84,8 @@ int main(int argc, char *argv[], char *envp[])
 char **arrdup(char **arr)
 {
 	/* arr must be NULL terminated */
-	char **dup;
-	size_t size = 0, i;
+	char **arr_dup;
+	size_t i, size = 0;
 
 	if (arr == NULL)
 		return (NULL);
@@ -77,12 +94,13 @@ char **arrdup(char **arr)
 		size += sizeof(arr[i]);
 
 	size += sizeof(arr) + sizeof(arr[i]);
-	dup = malloc(size);
-	if (dup == NULL)
+	arr_dup = malloc(size);
+	if (arr_dup == NULL)
 		return (NULL);
+
 	i = 0;
 	for (i = 0; arr[i]; i++)
-		dup[i] = arr[i];
-	dup[i] = arr[i];
-	return (dup);
+		arr_dup[i] = strdup(arr[i]);
+	arr_dup[i] = arr[i];
+	return (arr_dup);
 }
