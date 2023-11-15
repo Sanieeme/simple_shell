@@ -10,7 +10,7 @@ void execute(char *argv[], char *env[])
 	pid_t pid_child;
 	char *command;
 	int argc = 0;
- 
+
 	pid_child = fork();
 
 	if (pid_child == -1)

@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * _getpath - get path
+ * @cmd: parameter
+ * Return: NULL or path
+ */
 
 char *_getpath(char *cmd)
 {
@@ -35,7 +40,7 @@ char *_getpath(char *cmd)
 		}
 	}
 	free(path_cpy);
-	if(stat(cmd, &st) == 0)
+	if (stat(cmd, &st) == 0)
 	{
 		return (cmd);
 	}

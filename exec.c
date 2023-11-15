@@ -1,16 +1,16 @@
 #include "shell.h"
 /**
- * execute - execute using execve
+ * executes - execute using execve
  * @argv: parameter
+ * @env: parameter
  * Return: 0
  */
 void executes(char *argv[], char *env[])
 {
 	pid_t pid_child;
-	char *command;
+	char *command, *cmd;
 	int argc = 0;
-	char *cmd;
- 
+
 	pid_child = fork();
 
 	if (pid_child == -1)

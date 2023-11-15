@@ -11,7 +11,7 @@
 char **tokenize(char *str, char *delim)
 {
 	char *token, **tokens;
-	size_t i, j; 
+	size_t i, j;
 	size_t num_tokens = 1; /* count the last token */
 
 	if (str == NULL || delim == NULL)

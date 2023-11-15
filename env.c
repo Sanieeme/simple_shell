@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * _getenv - get environment
+ * @msg: parmeter
+ * Return: NULL or env
+ */
 char *_getenv(const char *msg)
 {
 	char *cmd, *k, *v, *env;
@@ -17,5 +22,5 @@ char *_getenv(const char *msg)
 		}
 		free(cmd);
 	}
-	return(NULL);
+	return (NULL);
 }
