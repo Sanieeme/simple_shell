@@ -13,6 +13,7 @@ char **arrdup(char **arr);
 int main(int argc, char *argv[], char *envp[])
 {
 	char *msg, *msg_dup, **argv_dup;
+	int status;
 	(void) argc;
 
 	while (1)
@@ -29,16 +30,21 @@ int main(int argc, char *argv[], char *envp[])
 			msg_dup = NULL;
 			continue;
 		}
-		else if (strcmp("exit", msg_dup) == 0)
-		{
-			free(msg);
-			free(msg_dup);
-			exit(EXIT_SUCCESS);
-		}
 
 		argv = _tokenize(msg_dup, " ");
 		argv_dup = arrdup(argv);
-		execute(argv_dup, envp);
+
+		if (strcmp("exit", argv_dup[0]) == 0)
+		{
+			status = argv_dup[1] == NULL ? EXIT_SUCCESS : atoi(argv_dup[1]);
+			free(msg);
+			free(msg_dup);
+			free(argv);
+			free(argv_dup);
+			exit(status);
+		}
+
+		executes(argv_dup, envp);
 
 		/* free allocated memory after use */
 		free(msg);
