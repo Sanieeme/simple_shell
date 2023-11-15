@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *envp[])
 	(void) argc;
 
 	while (1)
-	{	
+	{
 		prompt();
 		msg = _read();
 		msg_dup = strdup(msg);

@@ -4,6 +4,13 @@
 #include <string.h>
 
 char **arrdup(char **arr);
+/**
+ * main: entry
+ * @argc: parrameter
+ * @argv: parameter
+ * @envp: parameter
+ * Return: 0
+ */
 
 int main(int argc, char *argv[], char *envp[])
 {
@@ -62,7 +69,7 @@ int main(int argc, char *argv[], char *envp[])
 
 /**
  * arrdup - duplicate array
- * arr: array to be duplicated
+ * @arr: array to be duplicated
  * Return: new array with contents copied from arr
  */
 char **arrdup(char **arr)
