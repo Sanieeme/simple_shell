@@ -41,11 +41,11 @@ char **tokenize(char *str, char *delim)
 		return (NULL);
 
 	i = 0;
-	token = strtok(str, delim);
+	token = _strtok(str, delim);
 	while (token != NULL)
 	{
 		tokens[i++] = token;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	tokens[i] = token;/* last token is NULL */
 	return (tokens);
