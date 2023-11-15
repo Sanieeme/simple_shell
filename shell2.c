@@ -4,14 +4,14 @@
 #include <string.h>
 
 char **arrdup(char **arr);
+
 /**
- * main: entry
- * @argc: parrameter
- * @argv: parameter
- * @envp: parameter
+ * main - start simple_shell
+ * @argc: number of command line arguments
+ * @argv: argument vector
+ * @envp: current environment
  * Return: 0
  */
-
 int main(int argc, char *argv[], char *envp[])
 {
 	char *buf_dup, **argv_dup, *buffer = NULL;
@@ -31,11 +31,9 @@ int main(int argc, char *argv[], char *envp[])
 			/* remove \n char at the end of buffer */
 			buffer[strlen(buffer) - 1] = '\0';
 			buf_dup = strdup(buffer);
-			/*free(buffer);*/
 
 			if (buf_dup[0] == '\0' || strcmp(buf_dup, "\n") == 0)
 			{
-				/* free(buffer); */
 				free(buf_dup);
 				continue;
 			}
@@ -45,7 +43,6 @@ int main(int argc, char *argv[], char *envp[])
 			execute(argv_dup, envp);
 
 			/* free allocated memory */
-			printf("free allocated memory...\n");
 			free(buffer);
 			buffer = NULL;
 			free(buf_dup);

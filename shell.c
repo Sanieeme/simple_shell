@@ -61,7 +61,7 @@ int main(int argc, char *argv[], char *envp[])
 
 /**
  * arrdup - duplicate array
- * arr: array to be duplicated
+ * @arr: array to be duplicated
  * Return: new array with contents copied from arr
  */
 char **arrdup(char **arr)
