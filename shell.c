@@ -29,8 +29,14 @@ int main(int argc, char *argv[], char *envp[])
 			msg_dup = NULL;
 			continue;
 		}
+		else if (strcmp("exit", msg_dup) == 0)
+		{
+			free(msg);
+			free(msg_dup);
+			exit(EXIT_SUCCESS);
+		}
 
-		argv = tokenize(msg_dup, " ");
+		argv = _tokenize(msg_dup, " ");
 		argv_dup = arrdup(argv);
 		execute(argv_dup, envp);
 
