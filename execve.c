@@ -8,14 +8,14 @@
 void execute(char *argv[], char *env[])
 {
 	pid_t pid_child;
-	char *command;
+	char *command, *prog = _getenv("_");
 	int argc = 0;
 
 	pid_child = fork();
 
 	if (pid_child == -1)
 	{
-		perror("fork");
+		perror(prog);
 		exit(EXIT_FAILURE);
 	}
 	if (pid_child == 0)
@@ -33,7 +33,7 @@ void execute(char *argv[], char *env[])
 
 		if (execve(command, argv, env) == -1)
 		{
-			perror("simple_shell");
+			perror(prog);
 			exit(EXIT_FAILURE);
 		}
 	}
