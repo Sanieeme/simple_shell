@@ -18,7 +18,6 @@ char **_tokenize(char *str, char *delim);
 char *_getenv(const char *msg);
 void exec(char *argv[]);
 char *_getpath(char *cmd);
-char *_strtok(char *str, const char *delim);
-ssize_t _getline(char **restrict ptr, size_t *restrict n, FILE *restrict file);
+ssize_t _getline(char **ptr, FILE *file);
 
 #endif

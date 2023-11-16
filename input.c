@@ -9,7 +9,7 @@ char *_read(void)
 	size_t size = 0;
 	ssize_t n;
 
-	n = _getline(&msg, &size, stdin);
+	n = getline(&msg, &size, stdin);
 	if (n == -1)
 	{
 		if (feof(stdin))
