@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 char **arrdup(char **arr);
+int isempty(char *str);
 
 /**
  * main - start simple_shell
@@ -23,16 +25,17 @@ int main(int argc, char *argv[], char *envp[])
 	/* Read a line of text from the keyboard. */
 	while (nread != -1)
 	{
-		prompt();
-		nread = getline(&buffer, &size, stdin);
+		if (isatty(STDIN_FILENO))
+			prompt();
 
+		nread = getline(&buffer, &size, stdin);
 		if (nread != -1)
 		{
 			/* remove \n char at the end of buffer */
 			buffer[strlen(buffer) - 1] = '\0';
 			buf_dup = strdup(buffer);
 
-			if (buf_dup[0] == '\0' || strcmp(buf_dup, "\n") == 0)
+			if (buf_dup[0] == '\0' || isempty(buf_dup) == 0)
 			{
 				free(buf_dup);
 				continue;
@@ -72,7 +75,7 @@ int main(int argc, char *argv[], char *envp[])
 				free(buffer);
 		}
 	}
-	printf("\n");
+	/* printf("\n"); */
 	exit(EXIT_SUCCESS);
 }
 
@@ -98,9 +101,26 @@ char **arrdup(char **arr)
 	if (arr_dup == NULL)
 		return (NULL);
 
-	i = 0;
 	for (i = 0; arr[i]; i++)
 		arr_dup[i] = strdup(arr[i]);
 	arr_dup[i] = arr[i];
 	return (arr_dup);
+}
+
+/**
+ * isempty - checks if a string is empty
+ * @str: string
+ * Return: 0 if string is empty, else returns number of non-whitespace chars
+ */
+int isempty(char *str)
+{
+	int i, c, res = 0;
+
+	for (i = 0; str[i]; i++)
+	{
+		c = (int) str[i];
+		if ((c < 9 || c > 13) && c != 32)
+			res++;
+	}
+	return (res);
 }
