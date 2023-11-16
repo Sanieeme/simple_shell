@@ -8,7 +8,7 @@
 void execute(char *argv[], char *env[])
 {
 	pid_t pid_child;
-	char *command, *prog = _getenv("_");
+	char *command, *prog = getenv("_");
 	int argc = 0;
 
 	pid_child = fork();
@@ -36,6 +36,7 @@ void execute(char *argv[], char *env[])
 			perror(prog);
 			exit(EXIT_FAILURE);
 		}
+		free(prog);
 	}
 	else
 	{
