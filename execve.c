@@ -28,8 +28,8 @@ void execute(char *argv[], char *env[])
 				argc++;
 		}
 
-		if (argc != 1)
-			command[0] = '\n'; /* cause error if argc != 1 */
+		/*if (argc != 1)
+			command[0] = '\n'; cause error if argc != 1 */
 
 		if (execve(command, argv, env) == -1)
 		{
