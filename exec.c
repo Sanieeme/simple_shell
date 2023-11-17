@@ -11,11 +11,11 @@ void execute(char *argv[], char *env[])
 	pid_t pid_child;
 	char *command, *cmd, *prog;
 
-	command = argv[0];
+	/**command = argv[0];
 	cmd = _getpath(command);
 
 	if (cmd == NULL)
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);**/
 
 	prog = getenv("_");
 	pid_child = fork();
@@ -27,16 +27,27 @@ void execute(char *argv[], char *env[])
 	}
 	if (pid_child == 0)
 	{
+		command = argv[0];
+		cmd = _getpath(command);
+		if (cmd == NULL)
+		{
+			exit(EXIT_FAILURE);
+		}
+		
 		if (execve(cmd, argv, env) == -1)
 		{
 			perror(prog);
 			exit(EXIT_FAILURE);
 		}
+		if (strcmp(command, cmd) != 0)
+		{
+			free(cmd);
+		}
 	}
 	else
 	{
 		wait(NULL);
-		if (strcmp(command, cmd) != 0)
-			free(cmd);
+		/**if (strcmp(command, cmd) != 0)
+			free(cmd);**/
 	}
 }
