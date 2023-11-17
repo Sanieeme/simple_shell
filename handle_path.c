@@ -11,7 +11,10 @@ char *_getpath(char *cmd)
 	struct stat st;
 	int cmd_len, d;
 
-	path = _getenv("PATH");
+	if (stat(cmd, &st) == 0)
+		return (cmd);
+
+	path = getenv("PATH");
 
 	if (path)
 	{
@@ -40,9 +43,6 @@ char *_getpath(char *cmd)
 		}
 	}
 	free(path_cpy);
-	if (stat(cmd, &st) == 0)
-	{
-		return (cmd);
-	}
+	perror(getenv("_"));
 	return (NULL);
 }
