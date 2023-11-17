@@ -59,6 +59,7 @@ int main(int argc, char *argv[], char *envp[])
 				free(argv_dup);
 				exit(status);
 			}
+
 			execute(argv_dup, envp);
 
 			/* free allocated memory */
@@ -80,7 +81,6 @@ int main(int argc, char *argv[], char *envp[])
 				free(buffer);
 		}
 	}
-	printf("\n");
 	exit(EXIT_SUCCESS);
 }
 
