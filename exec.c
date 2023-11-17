@@ -21,28 +21,31 @@ void execute(char *argv[], char *env[])
 	}
 	if (pid_child == 0)
 	{
-		command = argv[0];
-		cmd = _getpath(command);
-		if (cmd == NULL)
+		if (argv[0])
 		{
-			exit(EXIT_FAILURE);
+			command = argv[0];
+			cmd = _getpath(command);
+			if (cmd == NULL)
+			{
+				exit(EXIT_FAILURE);
+			}
 		}
 		if (execve(cmd, argv, env) == -1)
 		{
 			perror(prog);
 			exit(EXIT_FAILURE);
 		}
-		if (strcmp(command, cmd) != 0)
+		else if (strcmp(command, cmd) != 0)
 		{
 			free(cmd);
 		}
 	}
 	else
 	{
-		wait(NULL);
+		wait(NULL);;
 		/**
 		 * if (strcmp(command, cmd) != 0)
 		 * free(cmd);
 		 */
-	}
+	};
 }
