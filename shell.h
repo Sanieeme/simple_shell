@@ -10,7 +10,6 @@ extern char **environ;
 
 void prompt(void);
 void _sprintf(const char *format);
-void executes(char *argv[], char *env[]);
 void execute(char *argv[], char *env[]);
 char *_read(void);
 char **tokenize(char *str, char *delim);

@@ -19,7 +19,7 @@ int main(int argc, char *argv[], char *envp[])
 	char *buf_dup, **argv_dup, *buffer = NULL;
 	ssize_t nread = 0;
 	size_t size = 0;
-	int i;
+	int i, status;
 	(void) argc;
 
 	/* Read a line of text from the keyboard. */
@@ -44,17 +44,22 @@ int main(int argc, char *argv[], char *envp[])
 			argv = tokenize(buf_dup, " ");
 			argv_dup = arrdup(argv);
 
-			/**
-			  *if (strcmp("exit", argv_dup[0]) == 0)
-			  *{
-			  * status = argv_dup[1] == NULL ? EXIT_SUCCESS : atoi(argv_dup[1]);
-			  * free(buffer);
-			  * free(buf_dup);
-			  * free(argv);
-			  * free(argv_dup);
-			  * exit(status);
-			  *}
-			  */
+			if (strcmp("exit", argv_dup[0]) == 0)
+			{
+				status = argv_dup[1] == NULL ? EXIT_SUCCESS : atoi(argv_dup[1]);
+				free(buffer);
+				free(buf_dup);
+				free(argv);
+
+				for (i = 0; argv_dup[i]; i++)
+				{
+					free(argv_dup[i]);
+				}
+				free(argv_dup[i]);
+				free(argv_dup);
+				exit(status);
+			}
+
 			execute(argv_dup, envp);
 
 			/* free allocated memory */
