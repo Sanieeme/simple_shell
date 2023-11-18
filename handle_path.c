@@ -16,7 +16,7 @@ char *_getpath(char *cmd)
 
 	path = getenv("PATH");
 
-	if (path)
+	if (path && path[0] != '\0')
 	{
 		path_cpy = strdup(path);
 		cmd_len = strlen(cmd);
@@ -41,8 +41,8 @@ char *_getpath(char *cmd)
 				_path = strtok(NULL, ":");
 			}
 		}
+		free(path_cpy);
 	}
-	free(path_cpy);
 	perror(getenv("_"));
 	return (NULL);
 }
